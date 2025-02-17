@@ -6,6 +6,9 @@ import './globals.css'
 import { Providers } from '@/lib/providers'
 import { ClerkProvider } from '@clerk/nextjs'
 
+// Styling
+import { dark } from '@clerk/themes'
+
 const geistSans = Geist({
     variable: '--font-geist-sans',
     subsets: ['latin'],
@@ -27,7 +30,7 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <ClerkProvider>
+        <ClerkProvider appearance={{ baseTheme: dark }}>
             <html lang="en" suppressHydrationWarning>
                 <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                     <Providers>{children}</Providers>
