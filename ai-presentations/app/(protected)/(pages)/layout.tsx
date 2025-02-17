@@ -6,8 +6,9 @@ import { onAuthenticateUser } from '@/lib/actions/user/on-authenticate-user.acti
 import { getRecentProjects } from '@/lib/actions/projects/get-recent-projects.action'
 
 // Components
-import { SidebarProvider } from '@/lib/components/ui/sidebar'
+import { SidebarInset, SidebarProvider } from '@/lib/components/ui/sidebar'
 import { AppSidebar } from '@/lib/components/global/AppSidebar'
+import { UpperInfoBar } from '@/lib/components/global/UpperInfoBar'
 
 export default async function Layout({ children }: PropsWithChildren) {
     const recent = await getRecentProjects()
@@ -19,6 +20,10 @@ export default async function Layout({ children }: PropsWithChildren) {
     return (
         <SidebarProvider>
             <AppSidebar recentProjects={recent.projects || []} user={checkUser.user} />
+
+            <SidebarInset>
+                <UpperInfoBar user={checkUser.user}>{children}</UpperInfoBar>
+            </SidebarInset>
         </SidebarProvider>
     )
 }

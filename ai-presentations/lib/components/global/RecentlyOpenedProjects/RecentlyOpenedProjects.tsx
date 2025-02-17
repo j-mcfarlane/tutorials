@@ -8,12 +8,16 @@ import { useRouter } from 'next/navigation'
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '../../ui/sidebar'
 import { Button } from '../../ui/button'
 
+// Store
+import { useSlideStore } from '@/lib/store/slide-store'
+
 export interface RecentlyOpenedProjectsProps {
     recentProjects: Project[]
 }
 
 export function RecentlyOpenedProjects({ recentProjects }: RecentlyOpenedProjectsProps) {
     const router = useRouter()
+    const { setSlides } = useSlideStore()
 
     const handleClick = (project: Project) => {
         if (!project.id) {
@@ -24,7 +28,7 @@ export function RecentlyOpenedProjects({ recentProjects }: RecentlyOpenedProject
             return
         }
 
-        // setSlides(JSON.parse(JSON.stringify(project.slides)))
+        setSlides(JSON.parse(JSON.stringify(project.slides)))
         router.push(`/presentation/${project.id}`)
     }
 
