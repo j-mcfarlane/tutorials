@@ -27,18 +27,25 @@ export function NavMain({ items }: NavMainProps) {
     return (
         <SidebarGroup className="p-0">
             <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton
-                        asChild
-                        tooltip={'Test'}
-                        className={`${pathname.includes('rl')} bg-background-80`}
-                    >
-                        <Link href="/" className={`text-lg ${pathname.includes('test') && 'font-bold'}`}>
-                            <Clock className="text-lg" />
-                            <span>Test Sidebar Item</span>
-                        </Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
+                {items.map((item) => {
+                    return (
+                        <SidebarMenuItem key={item.url}>
+                            <SidebarMenuButton
+                                asChild
+                                tooltip={item.title}
+                                className={`${pathname.includes(item.url)} bg-background-80`}
+                            >
+                                <Link
+                                    href={item.url}
+                                    className={`text-lg ${pathname.includes(item.url) && 'font-bold'}`}
+                                >
+                                    <item.icon className="text-lg" />
+                                    <span>{item.title}</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    )
+                })}
             </SidebarMenu>
         </SidebarGroup>
     )

@@ -1,3 +1,5 @@
+'use client'
+
 import { Project, User } from '@prisma/client'
 import { ComponentProps } from 'react'
 
@@ -5,6 +7,8 @@ import { ComponentProps } from 'react'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarHeader, SidebarMenuButton } from '../../ui/sidebar'
 import { Avatar, AvatarFallback, AvatarImage } from '../../ui/avatar'
 import { NavMain } from '../NavMain'
+import { data } from '@/lib/types/constants'
+import { RecentlyOpenedProjects } from '../RecentlyOpenedProjects'
 
 export interface AppSidebarProps extends ComponentProps<typeof Sidebar> {
     recentProjects: Project[]
@@ -27,7 +31,8 @@ export function AppSidebar({ recentProjects, user, ...rest }: AppSidebarProps) {
                 </SidebarMenuButton>
             </SidebarHeader>
             <SidebarContent className="px-3 mt-10 gap-y-6">
-                <NavMain items={[]} />
+                <NavMain items={data.navMain} />
+                <RecentlyOpenedProjects recentProjects={[]} />
             </SidebarContent>
         </Sidebar>
     )
