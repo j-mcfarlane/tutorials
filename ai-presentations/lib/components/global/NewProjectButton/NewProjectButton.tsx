@@ -15,7 +15,12 @@ export function NewProjectButton({ user }: NewProjectButtonProps) {
     const router = useRouter()
 
     return (
-        <Button size="lg" className="rounded-lg font-semibold" disabled={!user.subscription} onClick={() => {}}>
+        <Button
+            size="lg"
+            className="rounded-lg font-semibold"
+            disabled={!user.subscription}
+            onClick={() => router.push('/create-project')}
+        >
             <Plus />
             New Project
         </Button>

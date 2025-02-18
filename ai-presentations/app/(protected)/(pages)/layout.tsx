@@ -23,7 +23,8 @@ export default async function Layout({ children }: PropsWithChildren) {
 
             <SidebarInset>
                 <UpperInfoBar user={checkUser.user} />
-                {children}
+
+                <div className="py-4 px-8">{children}</div>
             </SidebarInset>
         </SidebarProvider>
     )

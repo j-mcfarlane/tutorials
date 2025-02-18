@@ -1,6 +1,5 @@
 import { getAllProjects } from '@/lib/actions/projects/get-all-projects.action'
 import { NotFound } from '@/lib/components/global/NotFound'
-import { ProjectCard } from '@/lib/components/global/ProjectCard'
 import { Projects } from '@/lib/components/global/Projects'
 
 export default async function DashboardPage() {
