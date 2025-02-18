@@ -22,7 +22,8 @@ export default async function Layout({ children }: PropsWithChildren) {
             <AppSidebar recentProjects={recent.projects || []} user={checkUser.user} />
 
             <SidebarInset>
-                <UpperInfoBar user={checkUser.user}>{children}</UpperInfoBar>
+                <UpperInfoBar user={checkUser.user} />
+                {children}
             </SidebarInset>
         </SidebarProvider>
     )
