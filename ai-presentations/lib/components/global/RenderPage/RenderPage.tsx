@@ -5,20 +5,36 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePromptStore } from '@/lib/store/prompt-store/usePromptStore'
 import { Page } from '@/lib/types/page.type'
 import { CreatePage } from '../CreatePage'
+import { GenerateAI } from '../GenerateAI'
+import { CreateFromScratch } from '../CreateFromScratch'
 
 export function RenderPage() {
     const router = useRouter()
 
     const { page, setPage } = usePromptStore()
 
+    const handleBack = () => {
+        setPage('create')
+    }
+
+    const handleSelectOption = (option: string) => {
+        if (option === Page.CREATE) {
+            router.push(`/templates`)
+        } else if (option === Page.CREATE_SCRATCH) {
+            setPage(Page.CREATE_SCRATCH)
+        } else {
+            setPage(Page.CREATIVE_AI)
+        }
+    }
+
     const renderStep = () => {
         switch (page) {
             case Page.CREATE:
-                return <CreatePage />
+                return <CreatePage onSelectOption={handleSelectOption} />
             case Page.CREATE_SCRATCH:
-                return <></>
+                return <CreateFromScratch onBack={handleBack} />
             case Page.CREATIVE_AI:
-                return <></>
+                return <GenerateAI onBack={handleBack} />
             default:
         }
     }

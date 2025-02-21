@@ -1,3 +1,5 @@
+'use client'
+
 import { Project } from '@prisma/client'
 import { motion } from 'framer-motion'
 import { ProjectCard } from '../ProjectCard'
@@ -27,7 +29,7 @@ export function Projects({ projects }: ProjectsProps) {
             animate="visible"
         >
             {projects.map((project) => (
-                <ProjectCard project={project} />
+                <ProjectCard key={project.id} project={project} />
             ))}
         </motion.div>
     )

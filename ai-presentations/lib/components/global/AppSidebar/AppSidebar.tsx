@@ -25,7 +25,7 @@ export function AppSidebar({ recentProjects, user, ...rest }: AppSidebarProps) {
                 <SidebarMenuButton size="lg" className="data-[state=open]:text-sidebar-accent-foreground">
                     <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
                         <Avatar className="h-10 w-10 rounded-full">
-                            <AvatarImage src="/" />
+                            <AvatarImage width={24} />
                             <AvatarFallback>VI</AvatarFallback>
                         </Avatar>
                     </div>
