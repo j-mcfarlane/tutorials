@@ -94,8 +94,6 @@ export function GenerateAI({ onBack }: GenerateAIProps) {
         try {
             const res = await createProject(currentAiPrompt, outlines.slice(0, numberOfCards))
 
-            console.log(res.project)
-
             if (res.status !== 200 || !res.project) {
                 throw new Error('unable to create project')
             }
@@ -117,7 +115,6 @@ export function GenerateAI({ onBack }: GenerateAIProps) {
             setCurrentAiPrompt('')
             resetOutlines()
         } catch (err) {
-            console.log(err)
             toast.error('Error', {
                 description: 'Failed to create project',
             })

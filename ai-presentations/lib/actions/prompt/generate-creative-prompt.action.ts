@@ -46,7 +46,7 @@ export async function generateCreativePrompt(prompt: string) {
 
         if (responseContent) {
             try {
-                const data = JSON.parse(responseContent)
+                const data = JSON.parse(responseContent.replace(/```json|```/g, ''))
 
                 return {
                     status: 200,

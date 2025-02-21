@@ -26,7 +26,7 @@ export async function generateLayouts(id: string, theme: string) {
 
         const user = await client.user.findUnique({
             where: {
-                clerkId: clerk.user.id,
+                clerkId: clerk.user.clerkId,
             },
         })
 

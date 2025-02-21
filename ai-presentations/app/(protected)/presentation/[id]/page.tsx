@@ -9,6 +9,10 @@ import { redirect, useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { Navbar } from './_components/Navbar'
+import { PreviewSidebar } from './_components/PreviewSidebar'
+import { Editor } from './_components/Editor'
 
 export default function PresentationDetailsPage() {
     const { setSlides, setProject, currentTheme, setCurrentTheme } = useSlideStore()
@@ -31,6 +35,7 @@ export default function PresentationDetailsPage() {
                 }
 
                 const findTheme = themes.find((theme) => theme.name === res.project.themeName)
+
                 setCurrentTheme(findTheme || themes[0])
                 setTheme(findTheme?.type === 'dark' ? 'dark' : 'light')
                 setProject(res.project)
@@ -53,5 +58,26 @@ export default function PresentationDetailsPage() {
         )
     }
 
-    return <DndProvider></DndProvider>
+    return (
+        <DndProvider backend={HTML5Backend}>
+            <div>
+                <Navbar id={params.id!.toString()} />
+
+                <div
+                    className="flex-1 flex overflow-hidden pt-16"
+                    style={{
+                        color: currentTheme.accentColor,
+                        fontFamily: currentTheme.fontFamily,
+                        backgroundColor: currentTheme.backgroundColor,
+                    }}
+                >
+                    <PreviewSidebar />
+
+                    <div className="flex-1 ml-64">
+                        <Editor isEditable={true} />
+                    </div>
+                </div>
+            </div>
+        </DndProvider>
+    )
 }

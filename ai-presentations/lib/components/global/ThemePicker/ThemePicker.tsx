@@ -88,6 +88,7 @@ export function ThemePicker({ selectedTheme, themes, onThemeSelect }: ThemePicke
                 <Button
                     className="w-full h-12 text-lg font-medium shadow-lg hover:shadow:xl transition-all duration-300"
                     style={{ backgroundColor: selectedTheme.accentColor, color: selectedTheme.backgroundColor }}
+                    onClick={handleGenerateLayouts}
                 >
                     {loading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Wand2 className="mr-2 h-5 w-5" />}
                     {loading ? <p className="animate-pulse">Generating...</p> : 'Generate Theme'}
