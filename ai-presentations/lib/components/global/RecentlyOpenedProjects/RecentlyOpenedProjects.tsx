@@ -40,13 +40,13 @@ export function RecentlyOpenedProjects({ recentProjects }: RecentlyOpenedProject
                     {recentProjects.map((project) => {
                         return (
                             <SidebarMenuItem key={project.id}>
-                                <SidebarMenuButton asChild tooltip={'Testing'} className="hover:bg-primary-80">
+                                <SidebarMenuButton asChild tooltip={project.title} className="hover:bg-primary-80">
                                     <Button
                                         variant="link"
                                         className="text-xs items-center justify-start"
                                         onClick={() => handleClick(project)}
                                     >
-                                        <span>Testing</span>
+                                        <span>{project.title}</span>
                                     </Button>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>

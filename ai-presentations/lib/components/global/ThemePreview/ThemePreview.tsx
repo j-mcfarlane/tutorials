@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 import { Button } from '../../ui/button'
 import { ArrowLeft } from 'lucide-react'
 import { ThemeCard } from '../ThemeCard'
+import { ThemePicker } from '../ThemePicker'
+import { themes } from '@/lib/data/themes.type'
 
 export interface ThemePreviewProps {}
 
@@ -108,6 +110,11 @@ export function ThemePreview({}: ThemePreviewProps) {
         </div>
     )
 
+    const applyTheme = (theme: Theme) => {
+        setSelectedTheme(theme)
+        setCurrentTheme(theme)
+    }
+
     return (
         <div
             className="h-screen w-full flex"
@@ -143,9 +150,27 @@ export function ThemePreview({}: ThemePreviewProps) {
                             theme={selectedTheme}
                             controls={controls}
                         />
+                        <ThemeCard
+                            title="Quick Start"
+                            description="Get up and running in no time"
+                            content={mainContent}
+                            variant="main"
+                            theme={selectedTheme}
+                            controls={controls}
+                        />
+                        <ThemeCard
+                            title="Quick Start"
+                            description="Get up and running in no time"
+                            content={rightContent}
+                            variant="right"
+                            theme={selectedTheme}
+                            controls={controls}
+                        />
                     </div>
                 </div>
             </div>
+
+            <ThemePicker selectedTheme={selectedTheme} themes={themes} onThemeSelect={applyTheme} />
         </div>
     )
 }

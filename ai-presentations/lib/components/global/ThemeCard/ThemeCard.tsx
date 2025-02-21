@@ -53,7 +53,7 @@ export function ThemeCard({ title, description, content, variant, theme, control
                 x: '25%',
                 y: '25%',
                 scale: 0.95,
-                rotate: -10,
+                rotate: 10,
                 transition: {
                     type: 'spring',
                     stiffness: 300,
@@ -70,7 +70,7 @@ export function ThemeCard({ title, description, content, variant, theme, control
             visible: {
                 opacity: 1,
                 scale: 1,
-                rotate: -10,
+                rotate: 0,
                 transition: {
                     type: 'spring',
                     stiffness: 300,
@@ -107,7 +107,7 @@ export function ThemeCard({ title, description, content, variant, theme, control
                         {content}
                     </CardContent>
 
-                    <div className="realtive w-full md:w-1/2 h-80 md:h-auto overflow-hidden rounded-r-lg">
+                    <div className="relative w-full md:w-1/2 h-80 md:h-auto overflow-hidden rounded-r-lg">
                         <Image
                             src="https://picsum.photos/500"
                             alt="Theme preview"
