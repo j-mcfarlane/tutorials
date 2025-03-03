@@ -1,4 +1,5 @@
 import { themes } from '@/lib/data/themes.type'
+import { ContentItem } from '@/lib/types/content-item.interface'
 import { Slide } from '@/lib/types/slide.interface'
 import { Theme } from '@/lib/types/theme.interface'
 import { Project } from '@prisma/client'
@@ -17,7 +18,10 @@ export interface SlideState {
     getOrderedSlides: () => Slide[]
     reOrderSlides: (from: number, to: number) => void
     removeSlide: (id: string) => void
-    adSlideAtIndex: (slide: Slide, index: number) => void
+    addSlideAtIndex: (slide: Slide, index: number) => void
+    setCurrentSlide: (index: number) => void
+    updateContentItem: (id: string, contentId: string, newContent: string | string[] | string[][]) => void
+    addComponentInSlide: (slide: string, item: ContentItem, parent: string, index: number) => void
 }
 
 export const useSlideStore = create(
@@ -55,7 +59,7 @@ export const useSlideStore = create(
                     slides: state.slides.filter((slide) => slide.id !== id),
                 }))
             },
-            adSlideAtIndex: (slide: Slide, index: number) => {
+            addSlideAtIndex: (slide: Slide, index: number) => {
                 set((state) => {
                     const newSlides = [...state.slides]
 
@@ -68,6 +72,78 @@ export const useSlideStore = create(
                     return {
                         slides: newSlides,
                         currentSlide: index,
+                    }
+                })
+            },
+            setCurrentSlide: (index) => {
+                set({ currentSlide: index })
+            },
+            updateContentItem: (id, content, newContent) => {
+                set((state) => {
+                    const updateContentRecursively = (item: ContentItem): ContentItem => {
+                        if (item.id === content) {
+                            return {
+                                ...item,
+                                content: newContent,
+                            }
+                        }
+
+                        if (Array.isArray(item.content) && item.content.every((i) => typeof i !== 'string')) {
+                            return {
+                                ...item,
+                                content: item.content.map((sub) => {
+                                    if (typeof sub !== 'string') {
+                                        return updateContentRecursively(sub as ContentItem)
+                                    }
+
+                                    return sub
+                                }) as ContentItem[],
+                            }
+                        }
+
+                        return item
+                    }
+
+                    return {
+                        slides: state.slides.map((slide) => {
+                            return slide.id === id
+                                ? {
+                                      ...slide,
+                                      content: updateContentRecursively(slide.content),
+                                  }
+                                : slide
+                        }),
+                    }
+                })
+            },
+            addComponentInSlide: (slide: string, item: ContentItem, parent: string, index: number) => {
+                set((state) => {
+                    const updatedSlides = state.slides.map((s) => {
+                        if (s.id === slide) {
+                            const updateContentRecursively = (content: ContentItem): ContentItem => {
+                                if (content.id === parent && Array.isArray(content.content)) {
+                                    const updatedContent = [...content.content]
+                                    updatedContent.splice(index, 0, item)
+
+                                    return {
+                                        ...content,
+                                        content: updatedContent as unknown as string[],
+                                    }
+                                }
+                                return content
+                            }
+
+                            return {
+                                ...s,
+                                content: updateContentRecursively(s.content),
+                            }
+                        }
+
+                        return s
+                    })
+
+                    return {
+                        slides: updatedSlides,
                     }
                 })
             },

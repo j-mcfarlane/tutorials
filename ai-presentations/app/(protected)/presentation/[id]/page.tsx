@@ -73,7 +73,7 @@ export default function PresentationDetailsPage() {
                 >
                     <PreviewSidebar />
 
-                    <div className="flex-1 ml-64">
+                    <div className="flex-1 ml-64 h-full">
                         <Editor isEditable={true} />
                     </div>
                 </div>
