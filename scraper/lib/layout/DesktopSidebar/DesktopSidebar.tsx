@@ -1,0 +1,56 @@
+'use client'
+
+import { CoinsIcon, HomeIcon, Layers2Icon, ShieldCheckIcon } from 'lucide-react'
+import Logo from '../Logo/Logo'
+import Link from 'next/link'
+import { buttonVariants } from '@/components/ui/button'
+import { usePathname } from 'next/navigation'
+
+const routes = [
+    {
+        href: '',
+        label: 'Home',
+        icon: HomeIcon,
+    },
+    {
+        href: 'workflows',
+        label: 'Workflows',
+        icon: Layers2Icon,
+    },
+    {
+        href: 'credentials',
+        label: 'Credentials',
+        icon: ShieldCheckIcon,
+    },
+    {
+        href: 'billing',
+        label: 'Billing',
+        icon: CoinsIcon,
+    },
+]
+
+export function DesktopSidebar() {
+    const pathname = usePathname()
+    const active = routes.find((route) => route.href.length > 0 && pathname.includes(route.href)) || routes[0]
+
+    return (
+        <div className="hidden relative md:block w-[280px] h-screen overflow-hidden bg-[var(--primary)] dark:bg-secondary/30 dark:text-foreground text-muted-foreground border-r-1 border-separate border-gray-200">
+            <div className="flex items-center justify-center gap-2 border-b-[1px] border-separate p-4 border-gray-200">
+                <Logo />
+            </div>
+
+            <div className="flex flex-col p-2"></div>
+
+            <div className="flex flex-col p-2">
+                {routes.map((route) => {
+                    return (
+                        <Link href={route.href} key={route.href} className={buttonVariants({})}>
+                            <route.icon size={20} />
+                            {route.label}
+                        </Link>
+                    )
+                })}
+            </div>
+        </div>
+    )
+}
